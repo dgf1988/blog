@@ -6,7 +6,7 @@
  * Time: 15:15
  */
 
-function tool_getip(){
+function getip(){
     $ip = '';
     foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_FROM', 'REMOTE_ADDR') as $v) {
         if (isset($_SERVER[$v])) {
@@ -17,10 +17,6 @@ function tool_getip(){
         }
     }
     return $ip;
-}
-
-function tool_hr() {
-    echo "<hr/>";
 }
 
 //将IP转换为数字
@@ -47,6 +43,7 @@ function ntoip($n)
 {
     $iphex=dechex($n);//将10进制数字转换成16进制
     $len=strlen($iphex);//得到16进制字符串的长度
+    $ip = [];
     if(strlen($iphex)<8)
     {
         $iphex='0'.$iphex;//如果长度小于8，在最前面加0
