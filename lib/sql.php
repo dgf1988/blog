@@ -18,3 +18,10 @@ function mysql_make_connect_string ($host, $dbname, $charset) {
 function new_pdo() {
     return new PDO(mysql_make_connect_string(DB_HOST, DB_NAME, DB_CHARSET), DB_USER, DB_PSWD);
 }
+
+class DatabasesException extends PDOException {
+    public function __construct($message = "", $code = 0, Throwable $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
+    }
+}

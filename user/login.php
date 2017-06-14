@@ -34,7 +34,7 @@ if (empty($_POST['name']) or empty($_POST['password']) ) {
         $_SESSION['id'] = $user[USER_ID];
         $_SESSION['name'] = $user[USER_USERNAME];
         $_SESSION['user'] = $user;
-        header('Location: /user/?id='.$user[USER_ID]);
+        header('Location: /user/');
     }catch (PDOException $e) {
         die( $e->getMessage());
     }

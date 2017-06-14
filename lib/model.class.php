@@ -6,6 +6,9 @@
  * Date: 2017/6/13
  * Time: 21:53
  */
+
+require_once 'sql.php';
+
 class Model
 {
     public static $dbh = null;
@@ -13,7 +16,7 @@ class Model
     function __construct(PDO $pdo)
     {
         if (empty($pdo)) {
-            throw new PDOException("数据库没有连接成功。");
+            throw new DatabasesException("数据库没有连接成功。");
         }
         self::$dbh = $pdo;
     }

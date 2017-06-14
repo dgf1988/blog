@@ -75,13 +75,8 @@ class User extends Model
         $sth = self::$dbh->prepare(USER_SQL_GET);
         $sth->execute(array($id));
         if ($sth->rowCount() == 0 ) return null;
-        $row = $sth->fetch();
-        return array(USER_ID=>$row[USER_ID],
-            USER_ADDTIME=>$row[USER_ADDTIME],
-            USER_ADDIP=>$row[USER_ADDIP],
-            USER_USERNAME=>$row[USER_USERNAME],
-            USER_KEYCODE=>$row[USER_KEYCODE],
-            USER_EMAIL=>$row[USER_EMAIL]);
+        $row = $sth->fetch(PDO::FETCH_ASSOC);
+        return $row;
     }
 
     public static function find_by_name($name) {
@@ -90,15 +85,8 @@ class User extends Model
         }
         $sth = self::$dbh->prepare(USER_SQL_FINDBYNAME);
         $sth->execute(array($name));
-
         if ($sth->rowCount() == 0 ) return null;
-        $row = $sth->fetch();
-
-        return array(USER_ID=>$row[USER_ID],
-            USER_ADDTIME=>$row[USER_ADDTIME],
-            USER_ADDIP=>$row[USER_ADDIP],
-            USER_USERNAME=>$row[USER_USERNAME],
-            USER_KEYCODE=>$row[USER_KEYCODE],
-            USER_EMAIL=>$row[USER_EMAIL]);
+        $row = $sth->fetch(PDO::FETCH_ASSOC);
+        return $row;
     }
 }

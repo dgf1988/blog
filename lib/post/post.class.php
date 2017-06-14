@@ -32,7 +32,8 @@ const POST_SQL_ADD = 'insert into post (post_ip, post_user, post_title, post_tex
 const POST_SQL_DEL = 'delete from post where id = ?';
 const POST_SQL_SET = "update post set \'%s\' = ? where id = ?";
 const POST_SQL_GET = 'select id, post_time, post_ip, post_user, post_title, post_text, post_cat from post where id = ?';
-const POST_SQL_LIST = 'select id, post_time, post_ip, post_user, post_title, post_text, post_cat from post order by id desc limit  ?, ?';
+const POST_SQL_LIST =
+'select id, post_time, post_ip, post_user, post_title, post_text, post_cat from post order by id desc limit  ?, ?';
 
 class Post extends Model
 {
@@ -44,12 +45,12 @@ class Post extends Model
         if (!is_array($post) or
             empty($post[POST_IP]) or
             empty($post[POST_USER]) or
-            empty($post[POST_TIME]) or
+            empty($post[POST_TITLE]) or
             empty($post[POST_TEXT])) {
             return 0;
         }
         $sth = self::$dbh->prepare(POST_SQL_ADD);
-        $sth->execute(array($post[POST_IP], $post[POST_USER], $post[POST_TIME], $post[POST_TEXT]));
+        $sth->execute(array($post[POST_IP], $post[POST_USER], $post[POST_TITLE], $post[POST_TEXT]));
         return self::$dbh->lastInsertId();
     }
 
@@ -90,12 +91,14 @@ class Post extends Model
         );
     }
 
-    public static function list($begnum, $lenght) {
-        if (empty($begnum) or empty($lenght)) {
-            return null;
-        }
+    public static function list($lenght=10, $begnum=0) {
         $sth = self::$dbh->prepare(POST_SQL_LIST);
-        $sth->execute(array($begnum, $lenght));
-        return $sth->fetchAll();
+        $sth->bindValue(1, $begnum, PDO::PARAM_INT);
+        $sth->bindValue(2, $lenght, PDO::PARAM_INT);
+        $sth->execute();
+        if ($sth->errorCode() != '00000') {
+            throw new PDOException($sth->errorInfo()[2], $sth->errorInfo()[1]);
+        }
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
 }
