@@ -44,5 +44,5 @@ try{
     Out( FormatException($e) );
 }
 
-require_once 'html/register_ok.php';
+Out('注册成功，ID='.$id);
 

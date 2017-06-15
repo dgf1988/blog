@@ -23,7 +23,7 @@ try{
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <title>非常落伍</title>
+    <title><?php echo SITE_TITLE ?></title>
     <link href="/css/base.css" rel="stylesheet" style="text/css" />
     <link href="/css/post_list.css" rel="stylesheet" style="text/css" />
     <style>
@@ -32,7 +32,7 @@ try{
 </head>
 <body>
     <header>
-        <h1><a href="/">非常落伍</a></h1>
+        <h1><a href="/"><?php echo SITE_TITLE ?></a></h1>
         <nav>
             <a href="/">首页</a>
             <a href="/post/">日记</a>

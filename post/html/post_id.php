@@ -28,7 +28,7 @@
 </head>
 <body>
 <header>
-    <h1><a href="/">非常落伍</a></h1>
+    <h1><a href="/"><?php echo SITE_TITLE ?></a></h1>
     <nav>
         <a href="/">首页</a>
         <a href="/post/">日记</a>
@@ -50,12 +50,15 @@
         <div>
             <?PHP echo $post[POST_TEXT] ?>
         </div>
+        <?PHP if (!empty($user) and $user[USER_USERNAME] == $post[POST_USER]) { ?>
         <footer>
             <form action="/post/del.php" method="post">
+                <input type="button" onclick="location='/post/edit/?id=<?PHP echo $post[POST_ID] ?>'" value="编辑">
                 <input type="hidden" name="id" value="<?PHP echo $post[POST_ID] ?>">
                 <input type="submit" value="删除">
             </form>
         </footer>
+        <?PHP } ?>
     </article>
 </div>
 <hr/>

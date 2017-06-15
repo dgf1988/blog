@@ -2,9 +2,8 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <title><?PHP echo SITE_TITLE.' - 日志' ?></title>
+    <title><?PHP echo SITE_TITLE.' - '.$post[POST_TITLE]; ?></title>
     <link href="/css/base.css" rel="stylesheet" style="text/css" >
-    <link href="/css/post_list.css" rel="stylesheet" style="text/css" >
     <style>
         body  > div > form > table {
             display: inline-block;
@@ -17,12 +16,15 @@
         }
         body  > div > form > table td input {
             width: 500px;
+            height:30px;
+            font-size: 20px;
         }
         body  > div > form > table td textarea {
             width: 500px;
             resize: none;
             height: 150px;
             padding: 1px;
+            font-size: 18px;
         }
     </style>
 </head>
@@ -32,44 +34,27 @@
     <nav>
         <a href="/">首页</a>
         <a href="/post/">日记</a>
-        <?PHP if (empty($user)) { ?>
-            <a href="/user/">登录</a>
-        <?PHP } else { ?>
-            <a href="/user/"><?PHP echo $user[USER_USERNAME]; ?></a>
-        <?PHP } ?>
+        <a href="/user/"><?PHP echo $user[USER_USERNAME]; ?></a>
     </nav>
 </header>
 <hr/>
 <div>
-    <ol class="post_list">
-        <?PHP foreach ($postlist as $post) { ?>
-            <li>
-                <h4><a href="/post/?id=<?PHP echo $post[POST_ID]; ?>"><?PHP echo $post[POST_TITLE]; ?></a></h4>
-                <time><?PHP echo $post[POST_TIME]; ?></time>
-            </li>
-        <?PHP } ?>
-    </ol>
-    <?PHP if (!empty($user)) {
-        $html = <<<eof
-            <form method="post" action="add.php"> 
-                <table>
-                <tr>
-                <th>标题</th><td><input class="input" name="title" ></td>
-</tr>
-                <tr>
-                <th>内容</th><td><textarea class="input" name="text"></textarea></td>
-                </tr>
-                <tr>
+    <form method="post" action="/post/update.php">
+        <input type="hidden" name="id" value="<?PHP echo $post[POST_ID] ?>">
+        <table>
+            <tr>
+                <th>标题</th><td> <input name="title" value="<?PHP echo $post[POST_TITLE] ?>"></td>
+            </tr>
+            <tr>
+                <th>内容</th><td><textarea name="text"><?PHP echo $post[POST_TEXT] ?></textarea></td>
+            </tr>
+            <tr>
                 <th></th>
-                <td><input type="submit" value="提交"></td>
-</tr>
+                <td><input type="submit" value="更新"></td>
+            </tr>
 
-</table>
-                
-            </form>
-eof;
-        echo $html;
-    } ?>
+        </table>
+    </form>
 </div>
 <hr/>
 <footer>

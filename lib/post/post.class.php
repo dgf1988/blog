@@ -30,7 +30,7 @@ const POST_CAT = 'post_cat';
 
 const POST_SQL_ADD = 'insert into post (post_ip, post_user, post_title, post_text) values (?,?,?,?)';
 const POST_SQL_DEL = 'delete from post where id = ?';
-const POST_SQL_SET = "update post set \'%s\' = ? where id = ?";
+const POST_SQL_SET = "update post set %s = ? where id = ?";
 const POST_SQL_GET = 'select id, post_time, post_ip, post_user, post_title, post_text, post_cat from post where id = ?';
 const POST_SQL_LIST =
 'select id, post_time, post_ip, post_user, post_title, post_text, post_cat from post order by id desc limit  ?, ?';
@@ -67,9 +67,6 @@ class Post extends Model
     }
 
     public static function set($id, $key, $value) {
-        if (!is_integer($id) or $id <= 0 or empty($key) or empty($value)) {
-            return 0;
-        }
         $sql = sprintf(POST_SQL_SET, $key);
         $sth = self::$dbh->prepare($sql) ;
         $sth->execute(array($value, $id));
