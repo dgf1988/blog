@@ -16,8 +16,12 @@ require_once dirname(__FILE__) . "/../lib/user/user.class.php";
 
 session_start();
 
+if (empty($_POST)) {
+    Out('提交方式不对。');
+}
+
 if (!empty($_SESSION['user'])) {
-    die('已经登录');
+    Out('已经登录');
 }
 
 $ip = getip();
@@ -25,25 +29,20 @@ $name = $_POST["name"];
 $password = $_POST["password"];
 $email = $_POST["email"];
 
+if (empty($ip) or empty($name) or empty($password) or empty($email)) {
+    Out('不能为空。');
+}
+
+$id = 0;
 try{
     new User(new_pdo());
     $id = User::add(array('addip'=>ipton($ip), 'username'=>$name, 'keycode'=>User::keycode($name, $password), 'email'=>$email));
     if (empty($id)) {
-        die("注册失败");
+        Out("注册失败");
     }
 }catch (PDOException $e ) {
-    die( $e->getMessage() );
+    Out( FormatException($e) );
 }
-?>
-<!DOCTYPE HTML>
-<html lang="zh-CN">
-<head>
-    <meta charset="utf-8">
-    <title>注册</title>
-</head>
-<body>
-<a href="/user/?id=<?php echo $id ?>">注册成功</a>
-<hr/>
-</body>
-</html>
+
+require_once 'html/register_ok.php';
 

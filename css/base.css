@@ -1,0 +1,28 @@
+body {
+    font-family: "Microsoft YaHei UI";
+    text-align: center;
+}
+body header h1 a{
+    text-decoration: none;
+    color: black;
+}
+body header nav a{
+    display: inline-block;
+    font-size: 20px;
+    margin: 0 10px;
+}
+
+body footer label{
+    font-size: 14px;
+}
+body footer a{
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 15px;
+}
+body footer label {
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 15px;
+
+}

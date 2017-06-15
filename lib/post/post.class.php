@@ -51,15 +51,18 @@ class Post extends Model
         }
         $sth = self::$dbh->prepare(POST_SQL_ADD);
         $sth->execute(array($post[POST_IP], $post[POST_USER], $post[POST_TITLE], $post[POST_TEXT]));
+        if (self::hasError($sth)) {
+            throw new DatabasesException(self::$lastErrorMessage, self::$lastErrorCode);
+        }
         return self::$dbh->lastInsertId();
     }
 
     public static function del($id) {
-        if (!is_integer($id) or $id <= 0) {
-            return 0;
-        }
         $sth = self::$dbh->prepare(POST_SQL_DEL) ;
         $sth->execute(array($id));
+        if (self::hasError($sth)) {
+            throw new DatabasesException(self::$lastErrorMessage, self::$lastErrorCode);
+        }
         return $sth->rowCount();
     }
 
@@ -70,25 +73,19 @@ class Post extends Model
         $sql = sprintf(POST_SQL_SET, $key);
         $sth = self::$dbh->prepare($sql) ;
         $sth->execute(array($value, $id));
+        if (self::hasError($sth)) {
+            throw new DatabasesException(self::$lastErrorMessage, self::$lastErrorCode);
+        }
         return $sth->rowCount();
     }
 
     public static function get($id) {
-        if (!is_integer($id) or $id <= 0) {
-            return null;
-        }
         $sth = self::$dbh->prepare(POST_SQL_GET) ;
         $sth->execute(array($id));
-        $row = $sth->fetch();
-        return array(
-            POST_ID=>$row[POST_ID],
-            POST_TIME=>$row[POST_TIME],
-            POST_IP=>$row[POST_IP],
-            POST_USER=>$row[POST_USER],
-            POST_TITLE=>$row[POST_TITLE],
-            POST_TEXT=>$row[POST_TEXT],
-            POST_CAT=>$row[POST_CAT]
-        );
+        if (self::hasError($sth)) {
+            throw new DatabasesException(self::$lastErrorMessage, self::$lastErrorCode);
+        }
+        return $sth->fetch(PDO::FETCH_ASSOC);
     }
 
     public static function list($lenght=10, $begnum=0) {
@@ -96,8 +93,8 @@ class Post extends Model
         $sth->bindValue(1, $begnum, PDO::PARAM_INT);
         $sth->bindValue(2, $lenght, PDO::PARAM_INT);
         $sth->execute();
-        if ($sth->errorCode() != '00000') {
-            throw new PDOException($sth->errorInfo()[2], $sth->errorInfo()[1]);
+        if (self::hasError($sth)) {
+            throw new DatabasesException(self::$lastErrorMessage, self::$lastErrorCode);
         }
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }

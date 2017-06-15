@@ -16,7 +16,7 @@ try{
     Post::create_table_if_not_exists();
     $postlist = Post::list();
 } catch(PDOException $e) {
-    die($e->getMessage());
+    Out($e->getMessage());
 }
 ?>
 <!DOCTYPE HTML>
@@ -24,43 +24,10 @@ try{
 <head>
     <meta charset="utf-8">
     <title>非常落伍</title>
+    <link href="/css/base.css" rel="stylesheet" style="text/css" />
+    <link href="/css/post_list.css" rel="stylesheet" style="text/css" />
     <style>
-        body {
-            font-family: "Microsoft YaHei UI";
-            text-align: center;
-        }
-        body header h1 a{
-            text-decoration: none;
-            color: black;
-        }
-        body header nav a{
-            display: inline-block;
-            font-size: 20px;
-            margin: 0 10px;
-        }
-        body ol {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        body ol li{
-            margin: 10px;
-        }
-        body ol h4{
-            font-size: 18px;
-            margin: 0;
-        }
-        body ol time{
-            font-size: 14px;
-        }
-        body footer label{
-            font-size: 14px;
-        }
-        body footer a{
-            display: inline-block;
-            font-size: 14px;
-            margin: 0 15px;
-        }
+
     </style>
 </head>
 <body>
@@ -78,7 +45,7 @@ try{
     </header>
     <hr/>
     <div>
-        <ol>
+        <ol class="post_list">
             <?PHP foreach ($postlist as $post) { ?>
             <li>
                 <h4><a href="/post/?id=<?PHP echo $post[POST_ID]; ?>"><?PHP echo $post[POST_TITLE]; ?></a></h4>

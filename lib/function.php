@@ -66,3 +66,23 @@ function ntoip($n)
 
     return implode('.', $ip);//连接各段，返回原IP值
 }
+
+function FormatException(Exception $e) {
+    return sprintf("ERROR [%u]: %s", $e->getCode(), $e->getMessage());
+}
+
+function FormatArticel ($text) {
+    $items = explode("\n", $text);
+    $ps = [];
+    foreach ($items as $p) {
+        $ps []= '<p>'.$p.'</p>';
+    }
+    return implode(' ', $ps);
+}
+
+function Out(string $msg, int $code=0) {
+    $Message = $msg;
+    $Code = $code;
+    include_once dirname(__FILE__).'/../html/message.php';
+    exit();
+}

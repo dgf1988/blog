@@ -13,14 +13,19 @@ require_once dirname(__FILE__) . "/../lib/user/user.class.php";
 
 
 session_start();
+
+if (!isset($_POST)) {
+    Out('方法不对。');
+}
+
 if (empty($_SESSION['user'])) {
-    die('没有登录 。');
+    Out('没有登录 。');
 }
 if (empty($_POST['title'])) {
-    die('没有标题 。');
+    Out('没有标题 。');
 }
 if (empty($_POST['text'])) {
-    die('没有内容 。');
+    Out('没有内容 。');
 }
 
 $user = $_SESSION['user'];

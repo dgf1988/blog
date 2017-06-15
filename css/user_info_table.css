@@ -1,0 +1,16 @@
+.user_info_table {
+
+    display: inline-block;
+    border: 1px solid #aeaeae;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 20px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.user_info_table th,td {
+    line-height: 30px;
+    border: 1px solid #aeaeae;
+    padding: 0  10px;
+}

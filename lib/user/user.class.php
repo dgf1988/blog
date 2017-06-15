@@ -47,24 +47,19 @@ class User extends Model
     }
 
     public static function add(array $user) {
-        if (!is_array($user)) {
-            return 0;
-        }
-        if (empty($user[USER_ADDIP])) {
-            return 0;
-        }
-        if (empty($user[USER_USERNAME])) {
-            return 0;
-        }
-        if (empty($user[USER_KEYCODE])) {
-            return 0;
-        }
-        if (empty($user[USER_EMAIL])) {
+        if (!is_array($user) or
+            empty($user[USER_ADDIP]) or
+            empty($user[USER_USERNAME]) or
+            empty($user[USER_KEYCODE]) or
+            empty($user[USER_EMAIL])) {
             return 0;
         }
         //$sql = "INSERT INTO user (addip, username, keycode, email) values ($ip, '$username', '$keycode', '$email')";
         $sth = self::$dbh->prepare(USER_SQL_ADD);
         $sth->execute(array($user[USER_ADDIP], $user[USER_USERNAME], $user[USER_KEYCODE], $user[USER_EMAIL]));
+        if (self::hasError($sth)) {
+            throw new DatabasesException(self::$lastErrorMessage, self::$lastErrorCode);
+        }
         return self::$dbh->lastInsertId();
     }
 
@@ -74,6 +69,9 @@ class User extends Model
         }
         $sth = self::$dbh->prepare(USER_SQL_GET);
         $sth->execute(array($id));
+        if (self::hasError($sth)) {
+            throw new DatabasesException(self::$lastErrorMessage, self::$lastErrorCode);
+        }
         if ($sth->rowCount() == 0 ) return null;
         $row = $sth->fetch(PDO::FETCH_ASSOC);
         return $row;
@@ -85,6 +83,9 @@ class User extends Model
         }
         $sth = self::$dbh->prepare(USER_SQL_FINDBYNAME);
         $sth->execute(array($name));
+        if (self::hasError($sth)) {
+            throw new DatabasesException(self::$lastErrorMessage, self::$lastErrorCode);
+        }
         if ($sth->rowCount() == 0 ) return null;
         $row = $sth->fetch(PDO::FETCH_ASSOC);
         return $row;

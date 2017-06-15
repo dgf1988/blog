@@ -1,0 +1,24 @@
+.login_talbe {
+    display: inline-block;
+    border: 1px solid #aeaeae;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 20px;
+}
+
+.login_talbe > caption {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.login_talbe tr {
+
+}
+
+.login_talbe tr th {
+    width: 50px;
+}
+.login_talbe tr td input {
+    width: 180px;
+    height: 20px;
+ }
