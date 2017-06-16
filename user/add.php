@@ -16,6 +16,10 @@ require_once dirname(__FILE__) . "/../lib/user/user.class.php";
 
 session_start();
 
+if (!ALLOW_REGISTER) {
+    Out('禁止注册。');
+}
+
 if (empty($_POST)) {
     Out('提交方式不对。');
 }

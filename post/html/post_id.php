@@ -53,7 +53,7 @@
         <?PHP if (!empty($user) and $user[USER_USERNAME] == $post[POST_USER]) { ?>
         <footer>
             <form action="/post/del.php" method="post">
-                <input type="button" onclick="location='/post/edit/?id=<?PHP echo $post[POST_ID] ?>'" value="编辑">
+                <input type="button" onclick="location='/post/edit.php?id=<?PHP echo $post[POST_ID] ?>'" value="编辑">
                 <input type="hidden" name="id" value="<?PHP echo $post[POST_ID] ?>">
                 <input type="submit" value="删除">
             </form>

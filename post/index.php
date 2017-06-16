@@ -19,7 +19,7 @@ try{
     $pdo = new_pdo();
     new Post($pdo);
     if (empty($_GET['id'])) {
-        $postlist = Post::list(50);
+        $postlist = Post::many(50);
         include_once 'html/post_list.php';
         exit();
     } else {

@@ -80,7 +80,7 @@ function FormatArticel ($text) {
     return implode(' ', $ps);
 }
 
-function Out(string $msg, int $code=0) {
+function Out($msg, $code=0) {
     $Message = $msg;
     $Code = $code;
     include_once dirname(__FILE__).'/../html/message.php';

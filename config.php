@@ -14,3 +14,19 @@ define("DB_PSWD", "guofeng");
 
 
 define("SITE_TITLE", "非常落伍");
+define('ALLOW_REGISTER', false);
+
+/*
+ *
+
+
+define("DB_HOST", "hdm-134.hichina.com");
+define("DB_NAME", "hdm1340733_db");
+define("DB_CHARSET", "utf8");
+define("DB_USER", "hdm1340733");
+define("DB_PSWD", "guofeng001");
+
+
+ *
+ *
+ * */

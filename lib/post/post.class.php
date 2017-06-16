@@ -11,7 +11,7 @@ require_once dirname(__FILE__)."/../model.class.php";
 const post_create_table_sql = <<<eof
     CREATE TABLE IF NOT EXISTS post ( 
         `id` INT NOT NULL AUTO_INCREMENT KEY , 
-        `post_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+        `post_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
         `post_ip` BIGINT NOT NULL , 
         `post_user` VARCHAR(20) NOT NULL , 
         `post_title` VARCHAR(200) NOT NULL , 
@@ -85,7 +85,7 @@ class Post extends Model
         return $sth->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function list($lenght=10, $begnum=0) {
+    public static function many($lenght=10, $begnum=0) {
         $sth = self::$dbh->prepare(POST_SQL_LIST);
         $sth->bindValue(1, $begnum, PDO::PARAM_INT);
         $sth->bindValue(2, $lenght, PDO::PARAM_INT);

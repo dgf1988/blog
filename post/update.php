@@ -34,7 +34,7 @@ try{
     new Post($dbh);
     Post::set($id, POST_TITLE, $title);
     Post::set($id, POST_TEXT, $text);
-    header('location: /post/edit/?id='.$id);
+    header('location: /post/edit.php?id='.$id);
 }catch (PDOException $e) {
     Out(FormatException($e));
 }

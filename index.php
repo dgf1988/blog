@@ -12,9 +12,8 @@ try{
     $pdo = new_pdo();
     new User($pdo);
     new Post($pdo);
-    User::create_table_if_not_exists();
-    Post::create_table_if_not_exists();
-    $postlist = Post::list();
+
+    $postlist = Post::many();
 } catch(PDOException $e) {
     Out($e->getMessage());
 }

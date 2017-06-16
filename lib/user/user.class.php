@@ -12,7 +12,7 @@ require_once dirname(__FILE__)."/../model.class.php";
 const user_create_table_sql = <<<eof
     CREATE TABLE IF NOT EXISTS user ( 
         id INT NOT NULL AUTO_INCREMENT KEY , 
-        addtime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , 
+        addtime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , 
         addip BIGINT NOT NULL , 
         username VARCHAR(20) NOT NULL UNIQUE , 
         keycode CHAR(32) NOT NULL , 

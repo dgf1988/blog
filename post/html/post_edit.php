@@ -22,7 +22,7 @@
         body  > div > form > table td textarea {
             width: 500px;
             resize: none;
-            height: 150px;
+            height: 400px;
             padding: 1px;
             font-size: 18px;
         }
