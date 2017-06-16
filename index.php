@@ -1,10 +1,10 @@
 <?php
 
 require_once 'config.php';
-require_once ROOT."lib/sql.php";
-require_once ROOT."lib/function.php";
-require_once ROOT."lib/user/user.class.php";
-require_once ROOT."lib/post/post.class.php";
+require_once dirname(__FILE__)."/lib/sql.php";
+require_once dirname(__FILE__)."/lib/function.php";
+require_once dirname(__FILE__)."/lib/user/user.class.php";
+require_once dirname(__FILE__)."/lib/post/post.class.php";
 
 session_start();
 $user = empty($_SESSION['user'])?NULL:$_SESSION['user'];
@@ -18,4 +18,4 @@ try{
     Out($e->getMessage());
 }
 
-include_once ROOT.'html/index.php';
+include_once 'html/index.php';
